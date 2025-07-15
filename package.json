@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsc-b && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   "homepage": "https://github.com/anika253/zWebSockets#readme",
   "description": "",
   "dependencies": {
-    "typescipt": "^1.0.0"
+    "@types/ws": "^8.18.1",
+    "typescipt": "^1.0.0",
+    "ws": "^8.18.3"
   }
 }
