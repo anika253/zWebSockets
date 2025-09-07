@@ -124,17 +124,13 @@ start more server when load increases
 if 2 people want to chat with each other they should be connected to the same server
 // scaling chat application is hard
  // we need to use a message broker like redis pub/sub or rabbitmq or kafka
- 
+
+ // what is pub sub?
+
+  // pub sub is a messaging pattern where the sender (publisher) does not send messages directly to specific receivers (subscribers). Instead, messages are published to a central topic or channel, and subscribers receive messages from that topic or channel based on their interests.  
+  // pub sub is used in chat applications to send messages to multiple users at once
 
 
-
-
-
-
-
-
-
-
-
+browswer connects to websocket server
 
 */
