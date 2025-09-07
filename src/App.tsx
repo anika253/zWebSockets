@@ -55,7 +55,9 @@ function App() {
   }
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket("ws://localhost:8080"); //location of socket
+
+    setSocket(ws);
     ws.onmessage = (event) => {
       alert(event.data);
     };
@@ -74,3 +76,65 @@ function App() {
 export default App;
 
 // send ping got pong
+
+// scaling of chat application
+/*
+a web app has more than 1 server 
+
+start more server when load increases
+  web sockets can be stateful or stateless
+  stateful - server remembers the client
+  stateless - server does not remember the client
+  load balancer - distributes the load among multiple servers
+
+  web sockt server are serverful ...
+  
+  we get a socket objext here can u put it in database ?
+
+  can we put socket object in database ?
+  no we cannot put socket object in database
+  we can put the socket id in database
+  socket id is unique for each connection
+  we can use redis to store the socket id and the corresponding user id
+  redis is an in-memory database
+  it is very fast
+  it is used for caching
+  it is used for session management
+  it is used for real-time analytics
+  it is used for pub/sub messaging
+  it is used for leaderboards
+  it is used for counting
+  it is used for queuing
+  it is used for rate limiting
+  it is used for geospatial indexing  
+
+
+      app.get(req, res)=>{
+      
+      res.json();
+      }          
+      can u put res onj in db?
+      no we cannot put res object in database
+      we can put the data in database
+      we can put the response data in database
+      we can put the response data in cache
+      we can use redis to store the response data
+      we can use redis to cache the response data
+      
+if 2 people want to chat with each other they should be connected to the same server
+// scaling chat application is hard
+ // we need to use a message broker like redis pub/sub or rabbitmq or kafka
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+*/
