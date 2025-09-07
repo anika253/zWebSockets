@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc -b && node ./dist/index.js"
+    "dev": "npx tsc && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,11 @@
   "description": "",
   "dependencies": {
     "@types/ws": "^8.18.1",
-    "typescript": "^1.0.0",
     "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "typescript": "^5.9.2"
   }
 }
