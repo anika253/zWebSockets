@@ -39,14 +39,38 @@ wss.on("connection", function (socket) {
   });
 });
 */
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 function App() {
-  function sendMessage() {}
+  const [socket, setSocket] = useState();
+  const inputRef = useRef();
+
+  function sendMessage() {
+    if (!socket) {
+      return;
+    }
+    //@ts-ignore
+    const msg = inputRef.current.value;
+    //@ts-ignore
+    socket.send(msg);
+  }
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080");
+    ws.onmessage = (event) => {
+      alert(event.data);
+    };
+    ws.onerror = () => {};
+    ws.close = () => {};
+    ws.onopen = () => {};
+  }, []);
+
   return (
     <div>
-      <input type="text" placeholder="Message..."></input>
+      <input type="text" ref={inputRef} placeholder="Message..."></input>
       <button onClick={sendMessage}>send </button>
     </div>
   );
 }
 export default App;
+
+// send ping got pong
