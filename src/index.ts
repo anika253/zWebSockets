@@ -39,12 +39,46 @@ wss.on("connection", (socket) => {
 
 wss.on("connection", (socket) => {
   socket.on("message", (message) => {
-    const parsedMessage = JSON.parse(message);
+    let parsedMessage;
+    try {
+      // @ts-ignore
+      parsedMessage = JSON.parse(message);
+    } catch (e) {
+      console.error("Invalid JSON:", message);
+      return;
+    }
+
     if (parsedMessage.type === "join") {
+      console.log("User joined room:", parsedMessage.payload.roomid);
       allsockets.push({
         socket,
         room: parsedMessage.payload.roomid,
       });
+    }
+
+    if (parsedMessage.type === "chat") {
+      console.log(
+        "Message in room:",
+        parsedMessage.payload.roomid,
+        parsedMessage.payload.message
+      );
+      // find the room of the current user
+      let currentuserRoom: string | null = null;
+      // check which room the current user is in
+      for (let i = 0; i < allsockets.length; i++) {
+        if (allsockets[i].socket === socket) {
+          currentuserRoom = allsockets[i].room;
+          break;
+        }
+      }
+      // frwd the msg to every one in the same room
+      if (currentuserRoom) {
+        for (let i = 0; i < allsockets.length; i++) {
+          if (allsockets[i].room === currentuserRoom) {
+            allsockets[i].socket.send(parsedMessage.payload.message);
+          }
+        }
+      }
     }
   });
 });
