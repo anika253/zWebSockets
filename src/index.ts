@@ -1,16 +1,22 @@
-import { WebSocketServer } from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 const wss = new WebSocketServer({ port: 8080 });
 let userCount = 0;
+let allsockets: WebSocket[] = [];
+// WebSocket is a native function ..not always but here
+
 // runs on every new connection
 wss.on("connection", (socket) => {
+  allsockets.push(socket);
   console.log("user connected");
   userCount++;
   console.log("user count:", userCount);
   socket.on("message", (e) => {
     console.log("message received:" + e.toString());
-    setTimeout(() => {
-      socket.send("server says" + e.toString());
-    }, 1000);
+
+    for (let i = 0; i < allsockets.length; i++) {
+      const s = allsockets[i];
+      s.send(e.toString() + " from server to all clients");
+    }
   });
 });
 // how server responds to client
