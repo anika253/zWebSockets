@@ -5,12 +5,11 @@ interface User {
   socket: WebSocket;
   room: string;
 }
+//maps , records
 let allsockets: User[] = [];
 {
-    {socket : socket , room : "room1"},
-    {socket: socket , room : "room2"},
-    {socket: socket , room : "room3"},
 }
+
 // WebSocket is a native function ..not here
 
 // runs on every new connection
@@ -35,7 +34,26 @@ wss.on("connection", (socket) => {
     console.log("user count:", userCount);
   });
 });
+*/
 // how server responds to client
+
+wss.on("connection", (socket) => {
+  socket.on("message", (message) => {
+    const parsedMessage = JSON.parse(message);
+    if (parsedMessage.type === "join") {
+      allsockets.push({
+        socket,
+        room: parsedMessage.payload.roomid,
+      });
+    }
+  });
+});
+
+// parse ->string to obj
+// stringify -> obj to string
+// JSON : javascript object notation
+// {"name":"anika","age":20}  ->string
+// {name:"anika",age:20}  ->obj
 
 /*
 how do u use express?
@@ -70,6 +88,20 @@ payload :
 }
 
 server tell the user the msg to frwd it to every one
+check if type is chat or join in it here!
+
+to convert an obj to string  call stringify operation .
+let str2 = JSON.stringify(obj);
+to convert string to obj call parse operation
+JSON.parse(str2);
+
+string ->parse ->obj
+obj ->stringify ->string    
+
+
+
+
+
 
 
 
