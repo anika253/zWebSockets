@@ -39,6 +39,7 @@ wss.on("connection", function (socket) {
   });
 });
 */
+/*
 import React, { useEffect, useState, useRef } from "react";
 function App() {
   const [socket, setSocket] = useState();
@@ -132,5 +133,20 @@ if 2 people want to chat with each other they should be connected to the same se
 
 
 browswer connects to websocket server
+browser sends a message to websocket server
+websocket server sends the message to all connected clients
+all clients receive the message
+called as broadcasting
+
+all clients connected to the same server receive the message
+creating a new room so that only clients in that room receive the same mesaage
+
+SCALABLE web socket server architecture
+HTTP server + WebSocket server + Message Broker (Redis Pub/Sub)
+HTTP has non persistent connection
+WebSocket has persistent connection
+Message Broker is used to communicate between multiple WebSocket servers
 
 */
+
+// _________ buiding broadcast system __________
